@@ -16,7 +16,7 @@ int main (int argc, char **argv){
       cksum = cksum^word;
   
     }
- while ((c = getopt (argc, argv, "xh:")) != -1){
+ while ((c = getopt (argc, argv, "xh")) != -1){
          switch (c)
            {
 	   case 'x': 
