@@ -1,23 +1,13 @@
-%.o: %.c
-	$(CC) $(CFLAGS) -c -o $@ $<
+all: task1
 
-%.man: %.1
-	nroff -man $< > $@
+task1: task1.o
+	gcc -g -m32 -Wall -o task1 task1.o
+	rm -f *.o
 
-all: bsplit bmerge bsplit.man bmerge.man
+task1.o: task1.c
+	gcc -m32 -g -Wall -ansi -g -c -o task1.o task1.c
 
-bsplit: bsplit.o xsum.o
-	$(CC) $(LDFLAGS) -o $@ $^
-
-bmerge: bmerge.o xsum.o
-	$(CC) $(LDFLAGS) -o $@ $^
-
-bsplit.o: bsplit.c xsum.h
-bmerge.o: bmerge.c xsum.h
-xsum.o: xsum.c xsum.h
+.PHONY : clean
 
 clean:
 	rm -f *.o
-
-distclean: clean
-	rm -f bsplit bmerge

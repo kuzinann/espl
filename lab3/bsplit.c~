@@ -18,8 +18,8 @@ int main (int argc, char **argv){
   char numOfFileStr[50];
   
   unsigned int originalFileCksum = 0;
-  char* fileName = argv[argc-1];
-  originalFile = fopen( fileName, "r"); /*opens the original file */
+  
+  originalFile = fopen( argv[argc-1], "r"); /*opens the original file */
   
   unsigned int currCksum = 0;
     
@@ -64,10 +64,10 @@ while(numOfBytesRead){
   if(numOfBytesRead!=0){
    
     if(numOfFile<10){
-      sprintf(numOfFileStr , "%s.0%d", fileName, numOfFile); /*adds the numOfFile into "FILE.0%d" and saves the resulting string in numOfFileStr */
+      sprintf(numOfFileStr , "FILE0.%d", numOfFile); /*adds the numOfFile into "FILE.0%d" and saves the resulting string in numOfFileStr */
      
     }else{
-      sprintf(numOfFileStr , "%s.%d", fileName, numOfFile); /*adds the numOfFile into "FILE.%d" and saves the resulting string in numOfFileStr */
+      sprintf(numOfFileStr , "FILE.%d", numOfFile); /*adds the numOfFile into "FILE.%d" and saves the resulting string in numOfFileStr */
   
     } 
     /* printf ("Characters: %c %d \n", 'a', 65);*/

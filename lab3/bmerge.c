@@ -2,23 +2,29 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <getopt.h> 
-#include "xsum.h"
+#include <string.h>
+#include "xsum.h" 
 
 int main (int argc, char **argv){
 	FILE *someFile;
-	int numOfBytesRead=1;
+	unsigned int numOfBytesRead=1;
 	int c;
 	FILE *fileToWrite;
 	char * sumOfOptions = "usage: bmerge [-x CHECKSUM] [-h] [-o OUTPUT] FILE";
 	char *nameOfFile = 0;
+	char *nameOfFileToWrite = 0;
+	char currentlyName[256];
+ 	int countFiles=1;
+	unsigned int calculatedCheckSum=0;
+	unsigned int savedCheckSum=0;
+	int shouldDoCheckSum = 0;
 
 
-	while ((c = getopt (argc, argv, "x:ho:")) != -1){
+	while ((c = getopt (argc, argv, "xho:")) != -1){
 		switch (c)
 		{
 		case 'x': 
-			/*  printf("%x\n",cksum );*/
-
+			shouldDoCheckSum = 1;
 			break;
 
 		case 'h':
@@ -29,7 +35,8 @@ int main (int argc, char **argv){
 			break;
 
 		case 'o':
-			nameOfFile = optarg;
+			nameOfFileToWrite = optarg;
+
 
 			break;
 
@@ -38,24 +45,52 @@ int main (int argc, char **argv){
 			abort ();
 		}
 	} 
-	if (nameOfFile == 0)
-		nameOfFile = argv[optind];
+
+	nameOfFile = argv[optind];
+
+	if (nameOfFileToWrite == 0)
+		nameOfFileToWrite = nameOfFile;
+
+	unsigned int arrayForNewFile [1] ;
+	fileToWrite = fopen( nameOfFileToWrite, "w");
+
+	sprintf(currentlyName , "%s%s", nameOfFile, ".01");
 
 
- 	unsigned int arrayForNewFile [100] ;
-	fileToWrite = fopen( nameOfFile, "w");
-	someFile = fopen( "", "r");
-	while(someFile != 0){		
+	someFile = fopen( currentlyName, "r");
+
+	while(someFile != 0){
+		numOfBytesRead = 1;
+		fread(&savedCheckSum, sizeof(numOfBytesRead), 1, someFile);
+		calculatedCheckSum=0;
 		while(numOfBytesRead!=0){
-			numOfBytesRead = fread(arrayForNewFile, 1, 100, someFile);
-			fwrite (arrayForNewFile, 1, numOfBytesRead, fileToWrite);
+			numOfBytesRead = fread(arrayForNewFile, 1, 4, someFile);
+			if (numOfBytesRead > 0)
+			{
+				fwrite (arrayForNewFile, 1, numOfBytesRead, fileToWrite);
+				calculatedCheckSum = calculatedCheckSum ^ *arrayForNewFile;
+			}
 		}
-		
+
+
+		if (shouldDoCheckSum == 1)
+		{
+			if (calculatedCheckSum != savedCheckSum)
+				printf("bad check sum for file: %s. excpected:%x calculated: %x\n", currentlyName, savedCheckSum, calculatedCheckSum);
+		}
 		fclose (someFile); 
-		someFile = fopen( "", "r");
+		++countFiles;
+
+		if(countFiles<10){
+		      sprintf(currentlyName , "%s.0%d", nameOfFile, countFiles);
+		}
+		else{
+		      sprintf(currentlyName , "%s.%d", nameOfFile, countFiles);
+		} 
+		someFile = fopen( currentlyName, "r");
 	}
-	  
-	 fclose (fileToWrite);   
+
+	fclose (fileToWrite);   
 
   
   return 0;

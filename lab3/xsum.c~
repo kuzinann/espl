@@ -8,7 +8,7 @@ unsigned int myCksum=0;
 
 unsigned int cksum(FILE *file){
    
-  myCksum = 0;
+  
    while(fread(&word, 1, sizeof(word), file)) {
       myCksum = myCksum^word;
     
