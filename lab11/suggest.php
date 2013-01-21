@@ -37,8 +37,13 @@ $a[]="Vicky";
 $q=$_GET["q"];
 
 //TODO: lookup all hints from our simple "data base"
+foreach ($a as $value){
+    $mySubStr= substr ($value, 0 , strlen ($q ) );
+    if($q == $mySubStr){
+	$hint = $mySubStr;
+    }
 
-
+}
 // Set output to "no suggestion" if no hint were found
 // or to the correct values
 if ($hint == "")

@@ -1,0 +1,35 @@
+body{ background-color: LemonChiffon;} 
+p { color: black; } 
+#suggest{
+float: right;
+margin-right: 500px;
+}  
+#box-one {
+text-align:right;
+}
+ 
+#box-two {
+position:absolute;
+left:10px;
+width:8in;
+}
+
+#myP {
+color: blue
+}
+#myPFont {
+color:black;
+padding:20px;
+}
+
+#box-three {
+float: right;
+width:7in;
+text-align:right;
+}
+#box-four{
+text-align:center
+}
+#press{
+color:#FF00FF
+}

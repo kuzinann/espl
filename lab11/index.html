@@ -1,31 +1,40 @@
 <html>
 <head>
 	<title>my site</title>
+	<link rel="stylesheet" type="text/css" href="index.css" />
 	<script type="text/javascript" src= "index.js"></script>
 
 </head>
-<body bgcolor="LemonChiffon ">
-	<form name="input" action="http://www.cs.bgu.ac.il/~abedas/remote_service_name.php" method="get" align="right">
-	First name: <input type="text" name="username" id="firstName">Password: <input type="password" name="pwd"><input type="submit" value="Submit">
+<body >
+	<DIV id="box-one">
+	<form name="input" action="http://www.cs.bgu.ac.il/~abedas/remote_service_name.php" method="get" textalign="right">
+	First name: <input type="text" name="username" id="firstName">Password: <input type="password" name="pwd" id="pass"><input type="submit" value="Submit" id="sub">
 	
 	</form>
+	</div>
+	
+	<p  id="suggest" >Suggest: <b id= "txtHint"></b></p>
+	
+	<div style="clear:both"></div>
+
 	<hr><br>
-	<DIV STYLE="position:absolute;left:10px;width:8in;">
-	  <p style="color: blue"><font size="6"><u> Anna </u></font><br>
-	  <font size="4" style="color:black;padding:20px">I study at BGU University </font></p>
-<					
+	<DIV id="box-two">
+	  <p id= "myP"><font size="6"><u> Anna </u></font><br>
+	  <font size="4" id="myPFont">I study at BGU University </font></p>
+					
 	</DIV>
 	  
-	<DIV STYLE="float: right;width:7in;text-align:right">
+	<DIV id="box-three">
 	
 	<img src="Britney_Spears-3.jpg">
 	</DIV>
 	<div style="clear:both"></div>
 	<br><hr><br><br>
 
-	<DIV STYLE="text-align:center">
-	<p style="color: pink"><font size="4"> Pass your mouse over the picture and get amazed!</p>
-	<img src="Britney_Spears-3.jpg">
+	<DIV id="box-four">
+	<p id= "press"><font size="4"> Pass your mouse over the picture and get amazed!</p>
+	<img id="hidding" src="Britney_Spears-3.jpg">
+	
 	</DIV>
 	
 </body>
